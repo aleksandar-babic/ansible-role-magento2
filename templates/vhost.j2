@@ -1,0 +1,29 @@
+server {
+    {% block server_begin %}{% endblock %}
+
+    {% block server_basic -%}
+    listen {{ item.listen | default('80') }};
+
+{% if item.server_name is defined %}
+    server_name {{ item.server_name }};
+{% endif %}
+
+{% if item.error_page is defined %}
+    error_page {{ item.error_page }};
+{% endif %}
+{% if item.access_log is defined %}
+    access_log {{ item.access_log }};
+{% endif %}
+{% if item.error_log is defined %}
+    error_log {{ item.error_log }} error;
+{% endif %}
+    set $MAGE_ROOT {{ item.mage_root }};
+    include {{ item.mage_root | default('/var/www/html') }}/nginx.conf.sample;
+    {% endblock %}
+
+    {% block server_end %}{% endblock %}
+
+{% if item.extra_parameters is defined %}
+    {{ item.extra_parameters|indent(4) }}
+{% endif %}
+}
