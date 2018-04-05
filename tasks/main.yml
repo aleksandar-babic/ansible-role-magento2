@@ -3,12 +3,23 @@
 - name: Include OS-specific variables.
   include_vars: "{{ ansible_os_family }}.yml"
 
+# Define nginx user
 - name: Define nginx_user.
   set_fact:
     nginx_user: "{{ __nginx_user }}"
   when: nginx_user is not defined
 
-# Setup/install tasks.
+# Setup/install php-fpm 7.0 tasks.
+- include: setup-php7.yml
+  when: ansible_os_family == 'RedHat'
+
+- name: Ensure php-fpm is started and enabled to start at boot.
+  service: name=php70-php-fpm state=started enabled=yes
+
+#Setup/install Composer
+- include: setup-composer.yml
+
+#Setup/install nginx tasks.
 - include: setup-RedHat.yml
   when: ansible_os_family == 'RedHat'
 

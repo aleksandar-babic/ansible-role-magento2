@@ -8,3 +8,6 @@
 
 - name: reload nginx
   service: name=nginx state=reloaded
+
+- name: restart php-fpm
+  service: name=php70-php-fpm state=restarted

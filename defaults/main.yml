@@ -75,3 +75,10 @@ nginx_log_format: |
   '$remote_addr - $remote_user [$time_local] "$request" '
   '$status $body_bytes_sent "$http_referer" '
   '"$http_user_agent" "$http_x_forwarded_for"'
+
+php_fpm_template: "php-fpm.j2"
+
+php_fpm_pool_name: "www" 
+php_fpm_user: "nginx" 
+php_fpm_group: "www-data"
+php_fpm_ip_port: "127.0.0.1:9000" 
