@@ -96,9 +96,26 @@ php_max_execution_time: 1800
 php_memory_limit: "2G"
 php_timezone: "America/Phoenix"
 
+###
+# Magento2 Default variables
+###
+
 magento_account_public_key: ""
 magento_account_private_key: ""
 magento_root_dir: ""
+magento_admin_frontname: "admin"
+magento_mysql_user: ""
+magento_mysql_password: ""
+magento_mysql_dbname: ""
+magento_admin_user: ""
+magento_admin_password: ""
+magento_admin_email: ""
+magento_admin_firstname: ""
+magento_admin_lastname: ""
+magento_language: "en_US"
+magento_currency: "USD"
+magento_base_url: ""
+
 
 ###
 # MariaDB Default variables

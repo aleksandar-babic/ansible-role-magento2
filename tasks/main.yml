@@ -53,3 +53,8 @@
 # Setup/install Redis tasks.
 - include: setup-redis.yml
   when: ansible_os_family == 'RedHat'
+
+# Install Magento 2 from CLI
+- include: install-magento2.yml
+  notify:
+    - restart nginx
