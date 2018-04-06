@@ -2,7 +2,7 @@
 dependencies: []
 
 galaxy_info:
-  author: ababic
+  author: Aleksandar Babic
   description: Magento 2 (LEMP with redis) stack setup for CentOS.
   company: "--"
   license: "license (MIT)"
