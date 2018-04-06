@@ -7,3 +7,13 @@
 
 - name: Ensure redis is started and enabled to start at boot.
   service: name="{{ redis_package_name }}" state=started enabled=yes
+
+- name: Add redis configuration file.
+  template:
+    src: "{{ redis_template }}"
+    dest: "/etc/{{ redis_config_name }}"
+    force: yes
+    owner: redis
+    group: root
+    mode: 0644
+  notify: restart redis

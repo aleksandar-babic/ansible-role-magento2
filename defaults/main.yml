@@ -144,3 +144,11 @@ mariadb_innodb_file_per_table: 'ON'
 mariadb_innodb_flush_log_at_trx_commit: 1
 mariadb_innodb_log_buffer_size: '16M'
 mariadb_innodb_log_file_size: '48M'
+
+###
+# Redis Default variables
+###
+redis_template: "redis.conf.j2"
+redis_config_name: "redis.conf"
+redis_bind_ip: 127.0.0.1
+redis_port: 6379

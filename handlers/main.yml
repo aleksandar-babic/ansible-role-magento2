@@ -16,3 +16,8 @@
   service:
     name: mariadb
     state: restarted
+
+- name: restart redis
+  service:
+    name: redis
+    state: restarted
