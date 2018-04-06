@@ -13,6 +13,9 @@
 - include: setup-RedHat.yml
   when: ansible_os_family == 'RedHat'  
 
+- name: Ensure nginx is started and enabled to start at boot.
+  service: name=nginx state=started enabled=yes
+
 # Setup/install php-fpm 7.0 tasks.
 - include: setup-php7.yml
   when: ansible_os_family == 'RedHat'
@@ -22,6 +25,9 @@
 
 #Setup/install Composer
 - include: setup-composer.yml
+
+# Create magento2 CE project with composer
+- include: setup-magento2-composer.yml
 
 # Vhost configuration.
 - include: vhosts.yml
@@ -36,9 +42,3 @@
     mode: 0644
   notify:
     - reload nginx
-
-- name: Ensure nginx is started and enabled to start at boot.
-  service: name=nginx state=started enabled=yes
-
-# Create magento2 CE project with composer
-- include: setup-magento2-composer.yml
