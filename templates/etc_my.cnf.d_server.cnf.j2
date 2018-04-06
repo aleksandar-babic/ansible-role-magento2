@@ -1,0 +1,40 @@
+[mariadb]
+socket                         = {{ mariadb_socket }}
+port                           = {{ mariadb_port }}
+skip_name_resolve              = {{ mariadb_skip_name_resolve }}
+
+default_storage_engine         = InnoDB
+
+character_set_server           = utf8
+collation_server               = utf8_general_ci
+
+log_warnings                   = {{ mariadb_log_warnings }}
+slow_query_log                 = {{ mariadb_slow_query_log }}
+long_query_time                = {{ mariadb_long_query_time }}
+
+max_connections                = {{ mariadb_max_connections }}
+max_user_connections           = {{ mariadb_max_user_connections }}
+max_allowed_packet             = {{ mariadb_max_allowed_packet }}
+max_heap_table_size            = {{ mariadb_max_heap_table_size }}
+thread_concurrency             = {{ ansible_processor_vcpus * 2 }}
+wait_timeout                   = {{ ansible_wait_timeout }}
+
+query_cache_size               = {{ mariadb_query_cache_size }}
+sort_buffer_size               = {{ mariadb_sort_buffer_size }}
+tmp_table_size                 = {{ mariadb_tmp_table_size }}
+read_buffer_size               = {{ mariadb_read_buffer_size }}
+read_rnd_buffer_size           = {{ mariadb_read_rnd_buffer_size }}
+join_buffer_size               = {{ mariadb_join_buffer_size }}
+table_definition_cache         = {{ mariadb_table_definition_cache }}
+table_open_cache               = {{ mariadb_table_open_cache }}
+table_open_cache_instances     = {{ mariadb_table_open_cache_instances }}
+
+innodb_strict_mode             = {{ mariadb_innodb_strict_mode }}
+innodb_file_format_check       = {{ mariadb_innodb_file_format_check }}
+innodb_file_format             = {{ mariadb_innodb_file_format }}
+innodb_buffer_pool_size        = {{ mariadb_innodb_buffer_pool_size }}
+innodb_buffer_pool_instances   = {{ mariadb_innodb_buffer_pool_instances }}
+innodb_file_per_table          = {{ mariadb_innodb_file_per_table }}
+innodb_flush_log_at_trx_commit = {{ mariadb_innodb_flush_log_at_trx_commit }}
+innodb_log_buffer_size         = {{ mariadb_innodb_log_buffer_size }}
+innodb_log_file_size           = {{ mariadb_innodb_log_file_size }}

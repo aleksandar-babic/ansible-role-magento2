@@ -42,3 +42,10 @@
     mode: 0644
   notify:
     - reload nginx
+
+# Setup/install MariaDB tasks.
+- include: setup-mariadb.yml
+  when: ansible_os_family == 'RedHat'
+
+- name: Ensure mariadb is started and enabled to start at boot.
+  service: name="{{ mariadb_service }}" state=started enabled=yes

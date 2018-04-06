@@ -7,4 +7,16 @@ nginx_pidfile: /var/run/nginx.pid
 nginx_vhost_path: /etc/nginx/conf.d
 nginx_default_vhost_path: /etc/nginx/conf.d/default.conf
 __nginx_user: "nginx"
+
 php_fpm_pool_path: "/etc/opt/remi/php70/php-fpm.d"
+
+mariadb_packages:
+  - MariaDB
+  - MariaDB-server
+  - MySQL-python
+
+mariadb_service: mariadb
+mariadb_socket: /var/lib/mysql/mysql.sock
+
+mariadb_config_network: /etc/my.cnf.d/network.cnf
+mariadb_config_server: /etc/my.cnf.d/server.cnf

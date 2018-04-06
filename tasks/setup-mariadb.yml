@@ -1,0 +1,112 @@
+---
+
+- name: Add official MariaDB repository
+  yum_repository:
+    name: MariaDB
+    description: Official MariaDB repository
+    baseurl: "http://yum.mariadb.org/{{ mariadb_version }}/{{ ansible_distribution|lower|regex_replace('redhat', 'rhel') }}{{ ansible_distribution_major_version }}-amd64"
+    gpgkey: https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
+    gpgcheck: yes
+
+- name: Install packages
+  package:
+    name: "{{ item }}"
+    state: installed
+  with_items: "{{ mariadb_packages }}"
+
+- name: Ensure service is started
+  service:
+    name: "{{ mariadb_service }}"
+    state: started
+    enabled: yes
+
+- name: Install server config file
+  template:
+    src: etc_my.cnf.d_server.cnf.j2
+    dest: "{{ mariadb_config_server }}"
+  notify: restart mariadb
+
+- name: Install network config file
+  template:
+    src: etc_my.cnf.d_network.cnf.j2
+    dest: "{{ mariadb_config_network }}"
+  notify: restart mariadb
+
+# This command will fail when the root password was set previously
+- name: Check if root password is set
+  shell: >
+    mysqladmin -u root status
+  changed_when: false
+  failed_when: false
+  register: root_pwd_check
+
+- name: Set MariaDB root password for the first time
+  mysql_user:
+    name: root
+    password: "{{ mariadb_root_password }}"
+    host_all: yes
+    state: present
+  when: root_pwd_check.rc == 0
+
+- name: Remove the test database
+  mysql_db:
+    name: test
+    login_user: root
+    login_password: "{{ mariadb_root_password }}"
+    state: absent
+
+- name: Create user defined databases
+  mysql_db:
+    name: "{{ item.name }}"
+    login_user: root
+    login_password: "{{ mariadb_root_password }}"
+    state: present
+  with_items: "{{ mariadb_databases }}"
+  register: db_creation
+
+# Below, the databases are initialised, but only when the database was created
+# in the previous step. This ensures idempotence.
+
+- name: Copy database init scripts
+  copy:
+    src: "{{ item.item.init_script }}"
+    dest: "/tmp/{{ item.item.init_script|basename }}"
+    mode: '0600'
+  with_items: "{{ db_creation.results }}"
+  when: item.changed and item.item.init_script is defined
+
+- name: Initialise databases
+  mysql_db:
+    name: "{{ item.item.name }}"
+    state: import
+    target: "/tmp/{{ item.item.init_script|basename }}"
+    login_user: root
+    login_password: "{{ mariadb_root_password }}"
+  with_items: "{{ db_creation.results }}"
+  when: item.changed and item.item.init_script is defined
+
+- name: Delete init scripts from the server
+  file:
+    name: "/tmp/{{ item.item.init_script|basename }}"
+    state: absent
+  with_items: "{{ db_creation.results }}"
+  when: item.changed and item.item.init_script is defined
+
+- name: Remove anonymous users
+  mysql_user:
+    name: ''
+    host_all: yes
+    login_user: root
+    login_password: "{{ mariadb_root_password }}"
+    state: absent
+
+- name: Create the users
+  mysql_user:
+    name: "{{ item.name }}"
+    password: "{{ item.password }}"
+    host: "{{ item.host|default('localhost') }}"
+    priv: "{{ item.priv }}"
+    login_user: root
+    login_password: "{{ mariadb_root_password }}"
+    state: present
+  with_items: "{{ mariadb_users }}"
