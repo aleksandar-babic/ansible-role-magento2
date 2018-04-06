@@ -8,7 +8,7 @@
     gpgkey: https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
     gpgcheck: yes
 
-- name: Install packages
+- name: Install MariaDB packages
   package:
     name: "{{ item }}"
     state: installed
