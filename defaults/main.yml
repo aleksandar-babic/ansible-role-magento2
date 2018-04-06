@@ -92,6 +92,10 @@ php_fpm_user: "nginx"
 php_fpm_group: "nginx"
 php_fpm_ip_port: "127.0.0.1:9000" 
 
+php_max_execution_time: 1800
+php_memory_limit: "2G"
+php_timezone: "America/Phoenix"
+
 magento_account_public_key: ""
 magento_account_private_key: ""
 magento_root_dir: ""

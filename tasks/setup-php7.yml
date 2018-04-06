@@ -32,6 +32,16 @@
     recurse: yes
 
 
+- name: Add php.ini configuration file.
+  template:
+    src: "php.ini.j2"
+    dest: "{{ php_fpm_path }}/php.ini"
+    force: yes
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart php-fpm
+
 - name: Add php-fpm pool configuration file.
   template:
     src: "{{ php_fpm_template }}"

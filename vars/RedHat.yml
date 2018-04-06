@@ -10,6 +10,7 @@ __nginx_user: "nginx"
 
 php_fpm_pool_path: "/etc/opt/remi/php70/php-fpm.d"
 php_fpm_lib_path: "/var/opt/remi/php70/lib/php"
+php_fpm_path: "/etc/opt/remi/php70"
 
 mariadb_packages:
   - MariaDB
