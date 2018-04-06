@@ -9,6 +9,7 @@ nginx_default_vhost_path: /etc/nginx/conf.d/default.conf
 __nginx_user: "nginx"
 
 php_fpm_pool_path: "/etc/opt/remi/php70/php-fpm.d"
+php_fpm_lib_path: "/var/opt/remi/php70/lib/php"
 
 mariadb_packages:
   - MariaDB
