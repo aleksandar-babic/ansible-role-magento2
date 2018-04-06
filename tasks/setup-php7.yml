@@ -18,9 +18,11 @@
     - php70-php-zip
     - php70-php-intl
     - php70-php-soap
+    - php70-php-pdo_mysql  
 
 - name : link env file
   command: ln -s /opt/remi/php70/enable /etc/profile.d/php70.sh creates=/etc/profile.d/php70.sh
+  notify: restart php-fpm
 
 - name: Add php-fpm pool configuration file.
   template:

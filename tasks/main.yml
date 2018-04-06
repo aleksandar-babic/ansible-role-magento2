@@ -9,6 +9,10 @@
     nginx_user: "{{ __nginx_user }}"
   when: nginx_user is not defined
 
+#Setup/install nginx tasks.
+- include: setup-RedHat.yml
+  when: ansible_os_family == 'RedHat'  
+
 # Setup/install php-fpm 7.0 tasks.
 - include: setup-php7.yml
   when: ansible_os_family == 'RedHat'
@@ -18,10 +22,6 @@
 
 #Setup/install Composer
 - include: setup-composer.yml
-
-#Setup/install nginx tasks.
-- include: setup-RedHat.yml
-  when: ansible_os_family == 'RedHat'
 
 # Vhost configuration.
 - include: vhosts.yml
@@ -39,3 +39,6 @@
 
 - name: Ensure nginx is started and enabled to start at boot.
   service: name=nginx state=started enabled=yes
+
+# Create magento2 CE project with composer
+- include: setup-magento2-composer.yml

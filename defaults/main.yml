@@ -80,5 +80,9 @@ php_fpm_template: "php-fpm.j2"
 
 php_fpm_pool_name: "www" 
 php_fpm_user: "nginx" 
-php_fpm_group: "www-data"
+php_fpm_group: "nginx"
 php_fpm_ip_port: "127.0.0.1:9000" 
+
+magento_account_public_key: ""
+magento_account_private_key: ""
+magento_root_dir: ""

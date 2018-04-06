@@ -1,0 +1,25 @@
+---
+- name: Set repo.magento.com composer keys
+  shell: composer config --global http-basic.repo.magento.com {{ magento_account_public_key }} {{ magento_account_private_key }}
+
+- name: Ensure magento project directory exists
+  file: path="{{ magento_root_dir }}" state=directory
+
+- name: Create magento project
+  shell: composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition .
+  args:
+    chdir: "{{ magento_root_dir }}"
+    creates: "{{ magento_root_dir }}/composer.json"
+  notify: reload nginx
+
+- name: Set file/directory ownership to nginx user
+  file:
+    path: "{{ magento_root_dir }}"
+    owner: "{{ __nginx_user }}"
+    group: "{{ __nginx_user }}"
+    recurse: yes
+
+- name: Set file/directory permissions
+  shell: find var vendor pub/static pub/media app/etc -type f -exec chmod u+w {} \; && find var vendor pub/static pub/media app/etc -type d -exec chmod u+w {} \; && chmod u+x bin/magento
+  args:
+    chdir: "{{ magento_root_dir }}"
