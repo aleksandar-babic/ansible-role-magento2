@@ -49,3 +49,7 @@
 
 - name: Ensure mariadb is started and enabled to start at boot.
   service: name="{{ mariadb_service }}" state=started enabled=yes
+
+# Setup/install Redis tasks.
+- include: setup-redis.yml
+  when: ansible_os_family == 'RedHat'

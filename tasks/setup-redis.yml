@@ -1,0 +1,9 @@
+---
+
+- name: Ensure redis is installed.
+  yum:
+    name: "{{ redis_package_name }}"
+    state: present
+
+- name: Ensure redis is started and enabled to start at boot.
+  service: name="{{ redis_package_name }}" state=started enabled=yes
