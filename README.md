@@ -39,7 +39,7 @@
         - name: mage2db
       mariadb_users:
         - name: mage2usr
-          password: 'supersecret'
+          password: 'supersecret*'
           priv: "mage2db.*:ALL"
       magento_mysql_user: "mage2usr"
       magento_mysql_password: "supersecret@"
