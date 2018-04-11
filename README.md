@@ -10,6 +10,7 @@
 * Install and configure MariaDB
 * Install and configure Redis In-Memory DB
 * Install Magento 2 CE using CLI
+* Setup Magento 2 Cron jobs
 * TODO : Configure env.php to use redis
 
 ## Example of playbook that is using this role
