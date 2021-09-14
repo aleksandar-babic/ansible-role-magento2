@@ -6,7 +6,7 @@
   file: path="{{ magento_root_dir }}" state=directory
 
 - name: Create magento project
-  shell: composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition .
+  shell: composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition={{ magento_version }} .
   args:
     chdir: "{{ magento_root_dir }}"
     creates: "{{ magento_root_dir }}/composer.json"

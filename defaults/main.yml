@@ -115,6 +115,7 @@ magento_admin_lastname: ""
 magento_language: "en_US"
 magento_currency: "USD"
 magento_base_url: ""
+magento_version: "2.3.7"
 
 
 ###
