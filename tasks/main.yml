@@ -16,12 +16,12 @@
 - name: Ensure nginx is started and enabled to start at boot.
   service: name=nginx state=started enabled=yes
 
-# Setup/install php-fpm 7.0 tasks.
+# Setup/install php-fpm 7.4 tasks.
 - include: setup-php7.yml
   when: ansible_os_family == 'RedHat'
 
 - name: Ensure php-fpm is started and enabled to start at boot.
-  service: name=php70-php-fpm state=started enabled=yes
+  service: name=php74-php-fpm state=started enabled=yes
 
 #Setup/install Composer
 - include: setup-composer.yml

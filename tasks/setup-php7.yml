@@ -5,20 +5,22 @@
 - name: Add repository 'remi-repo'
   command: rpm -ih http://rpms.famillecollet.com/enterprise/remi-release-7.rpm creates=/etc/yum.repos.d/remi.repo
 
-- name: install php70
+- name: install php74
   yum: name={{ item }} enablerepo=epel,remi,remi-php70 state=installed
   with_items:
-    - php70
-    - php70-php-mcrypt
-    - php70-php-mbstring
-    - php70-php-fpm
-    - php70-php-gd
-    - php70-php-xml
-    - php70-php-pdo
-    - php70-php-zip
-    - php70-php-intl
-    - php70-php-soap
-    - php70-php-pdo_mysql  
+    - php74
+    - php74-php-mcrypt
+    - php74-php-mbstring
+    - php74-php-fpm
+    - php74-php-gd
+    - php74-php-xml
+    - php74-php-pdo
+    - php74-php-zip
+    - php74-php-intl
+    - php74-php-soap
+    - php74-php-pdo_mysql 
+    - php74-php-sodium
+    - php74-php-bcmath
 
 - name : link env file
   command: ln -s /opt/remi/php70/enable /etc/profile.d/php70.sh creates=/etc/profile.d/php70.sh
